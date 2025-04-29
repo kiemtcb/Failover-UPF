@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: upf-cluster3
+  annotations:
+    k8s.v1.cni.cncf.io/networks: >-
+      [
+        {
+          "name": "n4-conf",
+          "interface": "n4",
+          "ips": [ "192.168.3.175" ],
+          "gateway": [ "192.168.3.1" ]
+        },
+        {
+          "name": "n3-conf",
+          "interface": "n3",
+          "ips": [ "192.168.3.142" ],
+          "gateway": [ "192.168.3.1" ]
+        },
+        {
+          "name": "n6-conf",
+          "interface": "n6",
+          "ips": [ "192.168.3.143" ],
+          "gateway": [ "192.168.3.1" ]
+        }
+      ]
+spec:
+  containers:
+    - name: upf-test-container
+      image: docker.io/kiemtcb/upf-test:nextmn-test-not-debug
+      imagePullPolicy: Always
+      volumeMounts:
+        - name: session-manager-config
+          mountPath: /home/sesion_manager/config.yaml
+          subPath: config.yaml
+        - name: config
+          mountPath: /config.yaml
+          subPath: config.yaml
+      securityContext:
+        privileged: true
+  volumes:
+    - name: session-manager-config
+      configMap:
+        name: session-manager-configmap  # Replace with the actual ConfigMap name
+    - name: config
+      configMap:
+        name: config-upf-configmap  # Replace with the actual ConfigMap name
