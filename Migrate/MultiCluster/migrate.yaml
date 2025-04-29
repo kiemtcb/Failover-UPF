@@ -1,0 +1,27 @@
+apiVersion: upf.ahihi.ahuhu/v1
+kind: Migrate
+metadata:
+  labels:
+    app.kubernetes.io/name: upf-migrate
+  name: migrate-sample-cluster-4
+spec:
+  upf:
+    registration:
+      name: upf-cluster3
+  cluster:
+    imageRepository:
+      secret:
+        name: secret-basic-auth
+    location:
+      node:
+        name: 01-k8s-worker-02
+      multiCluster:
+        cluster:
+          name: cluster4
+        network:
+          n4:
+            - ip: "192.168.3.185" 
+          n6:
+            - ip: "192.168.3.189"
+          n3:
+            - ip: "192.168.3.186"

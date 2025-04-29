@@ -1,0 +1,18 @@
+apiVersion: upf.ahihi.ahuhu/v1
+kind: Migrate
+metadata:
+  labels:
+    app.kubernetes.io/name: upf-migrate
+    app.kubernetes.io/managed-by: kustomize
+  name: migrate-sample
+spec:
+  upf:
+    registration:
+      name: upf-cluster3
+  cluster:
+    imageRepository:
+      secret:
+        name: secret-basic-auth
+    location:
+      node:
+        name: migrate-upf-2
