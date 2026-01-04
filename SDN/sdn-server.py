@@ -52,7 +52,7 @@ def update_route_gnodeB():
             ip_n3 = ip_n4
 
         # execute the script bash to update the route
-        os.system(f"bash update_route.sh {ip_n3} {ip_n3_old}")
+        os.system(f"bash update_route-plus-arp.sh {ip_n3} {ip_n3_old}")
 
         # Return a success response
         return jsonify({"message": "Route updated successfully"}), 200
